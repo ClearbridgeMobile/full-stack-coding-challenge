@@ -1,11 +1,10 @@
 import express from 'express';
 import path from 'path';
 
-
 const app = express()
 const router = express.Router();
-
 const port = 3000
+
 
 app.use(express.static(path.resolve('dist', 'client', 'src')))
 app.get('/', (_req, res) => {
@@ -18,6 +17,7 @@ router.get('/users', function (_req, res) {
     a: 'BBBff'
   })
 })
+
 app.use('/api', router);
 
 app.listen(port, () => {

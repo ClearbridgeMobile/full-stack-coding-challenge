@@ -7,5 +7,5 @@
     "rootDir": "./",
     "baseUrl": "./src",
     "moduleResolution": "node"
-  },
+  }
 }
