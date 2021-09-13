@@ -13,7 +13,7 @@ app.get('/', (_req, res) => {
 });
 
 router.get('/users', function (_req, res) {
-  console.log('got request')
+  console.log('got regquest')
   res.json({
     a: 'BBBff'
   })
