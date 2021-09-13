@@ -6,7 +6,7 @@ const router = express.Router();
 const port = 5000
 
 router.get('/users', function (_req, res) {
-  console.log('got request')
+  console.log('got ff')
   res.json({
     a: 'BBBff'
   })
