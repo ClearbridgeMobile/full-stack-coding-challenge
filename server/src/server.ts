@@ -10,7 +10,7 @@ const port = 5000
 router.get('/users', function (_req, res) {
   console.log('got request')
   res.json({
-    a: 'AAAAA'
+    a: 'BBB'
   })
 })
 app.use('/api', router);
