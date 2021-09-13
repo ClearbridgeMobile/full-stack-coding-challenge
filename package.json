@@ -12,7 +12,7 @@
     "test:server": "jest --config=server/jest.config.ts",
     "test": "npm run test:client && npm run test:server",
     "lint": "npx eslint --ext .ts,.tsx .",
-    "prepare": "husky install"
+    "husky": "husky install"
   },
   "repository": {
     "type": "git",
