@@ -27,10 +27,6 @@ module.exports = function(env, argv) {
               },
           },
     },
-    externals: {
-        react: 'React',
-        "react-dom": 'ReactDOM'
-      },
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         preferRelative: true

@@ -4,7 +4,7 @@
   "scripts": {
     "start:server": "npm run build:server && node dist/server/src/server.js",
     "build:server": "npm run clean && npx tsc -p server/tsconfig.json",
-    "serve:client": "npx webpack serve --env development",
+    "start:client": "npx webpack serve --env development",
     "build:client": "npx webpack --env production",
     "clean": "rm -rf ./dist",
     "postinstall": "node-config-ts",
