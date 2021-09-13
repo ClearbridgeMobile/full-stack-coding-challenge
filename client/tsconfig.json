@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.base.json",
+
+  "compileOnSave": false,
+  "compilerOptions": {
+    "jsx": "react",
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "moduleResolution": "node"
+  },
+}
