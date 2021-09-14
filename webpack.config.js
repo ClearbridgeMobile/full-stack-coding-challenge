@@ -8,7 +8,7 @@ module.exports = function(env, argv) {
       main: path.resolve(__dirname, 'client', 'src', 'main.tsx'),
     },
     mode: env.production ? 'production' : 'development',
-    devtool: env.production ? 'none' : 'eval',
+    devtool: env.production ? false : 'eval',
     output: {
       path: path.resolve(__dirname, 'dist', 'client', 'src'),
       filename: 'main.bundle.js',
