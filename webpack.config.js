@@ -8,11 +8,23 @@ module.exports = function(env, argv) {
       main: path.resolve(__dirname, 'client', 'src', 'main.tsx'),
     },
     mode: env.production ? 'production' : 'development',
-    devtool: env.production ? 'source-map' : 'eval',
+    devtool: env.production ? 'none' : 'eval',
     output: {
       path: path.resolve(__dirname, 'dist', 'client', 'src'),
       filename: 'main.bundle.js',
       publicPath: '/',
+    },
+    optimization: {
+      minimize: true,
+      nodeEnv: 'production',
+      minimizer: [
+        new TerserPlugin({
+          parallel: true,
+          terserOptions: {
+            compress: argv.mode === 'production',
+          },
+        }),
+      ],
     },
     devServer: {
       static: {
@@ -54,11 +66,6 @@ module.exports = function(env, argv) {
       ],
     },
     plugins: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: argv.mode === 'production',
-        },
-      }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'client', 'src', 'index.html'),
       }),
