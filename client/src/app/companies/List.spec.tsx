@@ -22,7 +22,7 @@ describe('List', () => {
         name: 'Test Company 2',
         city: 'Orlando',
         state: 'Florida',
-        description: 'Some description',
+        description: 'Some asd',
         founded: new Date('1998-04-19').toISOString(),
       },
     ];
