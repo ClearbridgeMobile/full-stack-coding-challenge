@@ -2,11 +2,14 @@
 /* eslint-disable */
 declare module "node-config-ts" {
   interface IConfig {
-    port: Port
+    Database: Database
+    Port: number
   }
-  interface Port {
-    client: number
-    server: number
+  interface Database {
+    host: string
+    user: string
+    password: string
+    database: string
   }
   export const config: Config
   export type Config = IConfig

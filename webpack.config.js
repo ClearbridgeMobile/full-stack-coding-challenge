@@ -1,53 +1,67 @@
-const path  = require('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = function(env, argv) {
-    return {
+  return {
     entry: {
-        main: path.resolve(__dirname, 'client', 'src', 'main.tsx'),
-
+      main: path.resolve(__dirname, 'client', 'src', 'main.tsx'),
     },
     mode: env.production ? 'production' : 'development',
     devtool: env.production ? 'source-map' : 'eval',
     output: {
-        path: path.resolve(__dirname, 'dist','client','src'),
-        filename: 'main.bundle.js',
+      path: path.resolve(__dirname, 'dist', 'client', 'src'),
+      filename: 'main.bundle.js',
+      publicPath: '/',
     },
     devServer: {
-        static: {
-            publicPath: path.resolve(__dirname, 'client', 'src'),
+      static: {
+        publicPath: path.resolve(__dirname, 'client', 'src'),
+      },
+      liveReload: true,
+      open: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
         },
-        liveReload: true,
-        open: true,
-        proxy: {
-            '/api':  {
-                target: 'http://localhost:5000',
-                changeOrigin: true
-              },
-          },
+      },
+      historyApiFallback: true,
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        preferRelative: true
-          
-      },
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      preferRelative: true,
+    },
     module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
-              },
-        ]
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+
+        {
+          test: /node_modules\/@material-ui\/core\/esm\/Popper\/Popper\.js$/,
+          use: {
+            loader: 'string-replace-loader',
+            options: {
+              search: "import PopperJS from 'popper.js';",
+              replace:
+                'import PopperJS from "../../../../popper.js/dist/esm/popper";',
+            },
+          },
+        },
+      ],
     },
     plugins: [
-        new TerserPlugin({
-            terserOptions: {
-             compress: argv.mode === 'production'
-            }
-          }),
-        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'client', 'src', 'index.html') }),
-    ]
-    }
+      new TerserPlugin({
+        terserOptions: {
+          compress: argv.mode === 'production',
+        },
+      }),
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, 'client', 'src', 'index.html'),
+      }),
+    ],
+  };
 };

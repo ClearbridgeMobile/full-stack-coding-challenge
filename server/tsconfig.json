@@ -3,11 +3,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": "./",
-
     "module": "commonjs",
-    "esModuleInterop":true,
+    "esModuleInterop": true,
     "baseUrl": "./src",
     "outDir": "../dist/server",
     "allowJs": true
-  }
+  },
+  "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

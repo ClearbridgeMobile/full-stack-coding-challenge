@@ -1,9 +1,9 @@
 {
   "Database": {
     "host": "localhost",
-    "user": "clearbridge",
+    "user": "clearbridge_test",
     "password": "secret",
-    "database": "clearbridge"
+    "database": "clearbridge_test"
   },
   "Port": 3000
 }
