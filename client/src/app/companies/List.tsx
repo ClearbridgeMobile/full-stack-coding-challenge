@@ -26,6 +26,7 @@ function CompanyList() {
   const handleClick = () => {
     window.location.href = '/edit';
   };
+
   return (
     <>
       <Typography variant='h2'>List of Companies</Typography>

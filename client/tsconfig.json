@@ -5,7 +5,8 @@
   "compilerOptions": {
     "jsx": "react",
     "rootDir": "./",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "esModuleInterop": true
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
