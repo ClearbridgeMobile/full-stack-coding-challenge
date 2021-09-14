@@ -55,7 +55,7 @@ module.exports = function(env, argv) {
             {
               loader: 'ts-loader',
               options: {
-                transpileOnly: env.production ? false : true,
+                transpileOnly: env.production ? true : false,
               },
             },
           ],
