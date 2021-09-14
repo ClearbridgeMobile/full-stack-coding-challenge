@@ -14,6 +14,9 @@ module.exports = function(env, argv) {
       filename: 'main.bundle.js',
       publicPath: '/',
     },
+    performance: {
+      hints: false,
+    },
     optimization: {
       minimize: true,
       nodeEnv: 'production',
@@ -48,7 +51,14 @@ module.exports = function(env, argv) {
       rules: [
         {
           test: /\.tsx?$/,
-          use: 'ts-loader',
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: env.production ? false : true,
+              },
+            },
+          ],
           exclude: /node_modules/,
         },
 
