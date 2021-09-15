@@ -51,7 +51,7 @@ First we are going to make the build and start the server. Run the following scr
 $ npm run start:server
 ```
 
-It removed the `./dist` directory and run compiles the server
+It removes the `./dist` directory and runs the compiled server
 
 Then build and run the client by:
 
@@ -59,8 +59,8 @@ Then build and run the client by:
 $ npm run start:client
 ```
 
-Webpack will make a development build and start a server in watch mode. A new browser windo
-should open and the app will start
+Webpack will make a development build and start a server in watch mode. A new browser window
+should open and the app will start.
 
 ### 4. Production Deployment
 
@@ -70,9 +70,9 @@ After making any changes you can deploy the app by pushing the code to the remot
 $ git push production main
 ```
 
-where `main` is the master branch
+where `main` is the master branch.
 
-This will run local `pre_push` hook to run tests before pushing and the remote will make
+This will run la ocal `pre_push` hook to run tests before pushing, the remote will make
 a production build and launch the app on the following url:
 
 [http://ec2-18-216-240-53.us-east-2.compute.amazonaws.com/](http://ec2-18-216-240-53.us-east-2.compute.amazonaws.com/)
@@ -85,18 +85,18 @@ There are many toolchains that can setup the front-end app or the deployment cha
 I decided to build from scratch because the app is fairly simple and these tool chains
 sometimes come with other packages that would never get used.
 
-They also hide a lot of implementation or deployment details from the developer and that does
+They also hide a lot of implementation or deployment details from the developer. That can
 make the task of developer easy but I wanted to be able to configure things on my own.
 
 ### 2. How to setup the folder structure?
 
-There are numerour approaches to setup the folders and file structure. I decided to setup
+There are numerous approaches to setup the folders and file structure. I decided to setup
 my workspace based on how information flows and control is passed. I wanted my folder structure
-to layout the actual architecture of the app
+to layout the actual architecture of the app.
 
 The `client` and `server` folders are separate because these are distinct projects. However, they do share common packages and configurations. These commonalities remain in the root folder and the configurations can be extended and overwritten by the individual app.
 
-These project then have the `src` folder which contains the running code. The `server` project
+These project then have the `src` folder which contains the running application code. The `server` project
 has the `routes` folder to contain the routes, whereas the `client` has a similar `pages` folder.
 
 ### 3. What is the relationship between Companies and Founders?
@@ -128,8 +128,8 @@ of founders and some of them maybe new and some modified.
 
 ### 5. Is editing and creating of companies part of same component or different?
 
-Editing and creating of companies have the same UI so it seems reasonable to use the same component. However, I decided to make them separate to reflect the route because in a user's
-mind they are different operations. Though, in future some of the code can be refactored
+Editing and creating of companies have the same UI so it seems reasonable to use the same component. However, I decided to make them separate to reflect the route since in a user's
+mind they are different operations. Though, in future some of the code can be refactored.
 
 ## Future Improvements
 
