@@ -12,6 +12,5 @@ const pool = mysql.createPool({
 
 const poolConnection = promisify(pool.getConnection.bind(pool));
 
-
 export default poolConnection;
 

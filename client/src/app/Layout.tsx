@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { Container, makeStyles } from '@material-ui/core';
-import CompanyDetails from './companies/Details';
-import CompanyEdit from './companies/Edit';
-import CompanyList from './companies/List';
-import CompanyCreate from './companies/Create';
+import CompanyDetails from './pages/CompanyDetails';
+import CompanyEdit from './pages/CompanyEdit';
+import CompanyList from './pages/CompanyList';
+import CompanyCreate from './pages/CompanyCreate';
 const useStyles = makeStyles(theme => ({
   container: {
     marginTop: theme.spacing(4),

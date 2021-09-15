@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import axios from 'axios';
@@ -13,6 +14,7 @@ const useStyles = makeStyles(() => ({
 function CompanyList() {
   const classes = useStyles();
   const [companies, setCompanies] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     getData();
@@ -24,7 +26,7 @@ function CompanyList() {
   }, []);
 
   const handleClick = () => {
-    window.location.href = '/edit';
+    history.push('/create');
   };
 
   return (

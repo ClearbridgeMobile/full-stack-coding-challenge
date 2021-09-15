@@ -18,7 +18,6 @@ poolConnection().then((connection) => {
   }).finally(() => console.log('done'));
 
 
-
   async function createTables() {
     await Promise.all([
       query(`CREATE TABLE companies(
@@ -28,20 +27,22 @@ poolConnection().then((connection) => {
       state VARCHAR(50) NOT NULL,
       description VARCHAR(255),
       founded date,
-      founderId MEDIUMINT(8) UNSIGNED,
       createdAt datetime default CURRENT_TIMESTAMP,
       updatedAt datetime on update CURRENT_TIMESTAMP,
       PRIMARY KEY(companyId)
       );`),
+
       query(`CREATE TABLE founders(
       founderId MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
       firstName VARCHAR(50) NOT NULL,
       lastName VARCHAR(50) NOT NULL,
       title VARCHAR(50),
+      companyId MEDIUMINT(8) UNSIGNED NOT NULL,
       createdAt datetime default CURRENT_TIMESTAMP,
       updatedAt datetime on update CURRENT_TIMESTAMP,
-      PRIMARY KEY (founderId)
-    );`)
+      PRIMARY KEY (founderId),
+      FOREIGN KEY (companyId) REFERENCES companies(companyId)
+    );`),
     ]);
   }
   async function seedData() {
@@ -208,9 +209,10 @@ poolConnection().then((connection) => {
 
 
     for (let i = 0; i < companies.length; i = i + 1) {
-      const insertResult: any = await query(`INSERT INTO founders(firstName, lastName, title) VALUES ("${founders[i].firstName}",  "${founders[i].lastName}", "${founders[i].title}")`)
+      const insertResult: any = await query(`INSERT INTO companies(name, city, state,description, founded) VALUES ("${companies[i].name}",  "${companies[i].city}", "${companies[i].state}", "${companies[i].description}", "${format(companies[i].founded, 'YYYY-MM-DD')}")`)
 
-      await query(`INSERT INTO companies(name, city, state,description, founded, founderId) VALUES ("${companies[i].name}",  "${companies[i].city}", "${companies[i].state}", "${companies[i].description}", "${format(companies[i].founded, 'YYYY-MM-DD')}", "${insertResult.insertId}")`)
+      await query(`INSERT INTO founders(firstName, lastName, title, companyId) VALUES ("${founders[i].firstName}",  "${founders[i].lastName}", "${founders[i].title}", "${insertResult.insertId}")`)
+
 
     }
     connection.destroy();

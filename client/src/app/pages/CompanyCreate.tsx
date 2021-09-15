@@ -1,6 +1,7 @@
 import React from 'react';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { format } from 'fecha';
+import { useHistory } from 'react-router-dom';
 
 import {
   Box,
@@ -18,6 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 function CompanyCreate() {
   const classes = useStyles();
+  const history = useHistory();
   const company = {
     name: null,
     city: null,
@@ -30,7 +32,7 @@ function CompanyCreate() {
     async function submitData() {
       company.founded = format(new Date(company.founded), 'YYYY:MM:DD');
       await axios.post(`/api/companies/`, company);
-      window.location.href = '/';
+      history.push('/');
     }
   };
 

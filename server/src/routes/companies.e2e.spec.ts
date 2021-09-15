@@ -13,6 +13,7 @@ beforeEach(async () => {
 
   await query('SET FOREIGN_KEY_CHECKS=0;');
   await query('TRUNCATE `clearbridge_test`.companies;');
+
   connection.destroy();
 
 });
@@ -49,6 +50,29 @@ describe('GET "/api/companies"', () => {
 
   });
 });
+
+describe('GET "/api/companies/:companyId"', () => {
+  it('should return a list of companies', async () => {
+    const connection = await poolConnection();
+    const query = promisify(connection.query.bind(connection));
+
+    const date = format(new Date('1991-01-01'), 'YYYY-MM-DD');
+
+    await query(`INSERT INTO companies (name, city, state, description, founded) 
+    VALUES("${randomstring.generate(5)}", "${randomstring.generate(5)}", "${randomstring.generate(5)}","${randomstring.generate(15)}", "${date}")`)
+
+    const subject = await query(`INSERT INTO companies (name, city, state, description, founded) 
+    VALUES("${randomstring.generate(5)}", "${randomstring.generate(5)}", "${randomstring.generate(5)}","${randomstring.generate(15)}", "${date}")`)
+    connection.destroy();
+
+    const res = await request.get(`/api/companies/${subject.insertId}`)
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({ companyId: subject.insertId }));
+    expect(res.type).toEqual('application/json');
+
+  });
+});
+
 describe('POST "/api/companies"', () => {
   it('should save company', async () => {
     let res = await request.get('/api/companies')

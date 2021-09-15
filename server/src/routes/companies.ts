@@ -95,7 +95,7 @@ router.put('/companies/:companyId', async (req, res) => {
   const data = req.body;
 
   try {
-    const result = await query("UPDATE companies SET name = ?, city = ?, state = ?, description = ?, founded = ?, founderId = ? WHERE companyId = ?", [data.name, data.city, data.state, data.description, data.founded, data?.founderId, companyId]);
+    const result = await query("UPDATE companies SET name = ?, city = ?, state = ?, description = ?, founded = ? WHERE companyId = ?", [data.name, data.city, data.state, data.description, data.founded, companyId]);
 
     if (result.affectedRows) {
       connection.destroy();

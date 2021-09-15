@@ -9,7 +9,7 @@
     "clean": "rm -rf ./dist",
     "postinstall": "node-config-ts",
     "test:client": "jest --config=client/jest.config.ts",
-    "test:server": "NODE_ENV=test jest --config=server/jest.config.ts",
+    "test:server": "NODE_ENV=test jest  --runInBand --config=server/jest.config.ts",
     "test": "npm run test:client && npm run test:server",
     "husky": "husky install",
     "migrations:test": "NODE_ENV=test node dist/server/src/migrations.js",
