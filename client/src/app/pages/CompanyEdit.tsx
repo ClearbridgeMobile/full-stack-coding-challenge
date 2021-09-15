@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { format } from 'fecha';
+import { useHistory } from 'react-router-dom';
 
 import {
   Box,
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 function CompanyEdit() {
   const classes = useStyles();
+  const history = useHistory();
 
   let { companyId } = useParams();
   const [company, setCompany] = useState(null);
@@ -37,6 +39,7 @@ function CompanyEdit() {
     async function submitData() {
       company.founded = format(new Date(company.founded), 'YYYY:MM:DD');
       await axios.put(`/api/companies/${companyId}`, company);
+      history.push('/');
     }
   };
 
