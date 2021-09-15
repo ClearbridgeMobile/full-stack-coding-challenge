@@ -1,87 +1,143 @@
 # Clearbridge Mobile Engineering: Fun Front to Back
 
-TESTS Welcome to the Clearbridge Mobile Engineering Full Stack code Challenge. We work on diverse projects and value team members who can do it all from CSS to DevOps and everything inbetween. We love to code and are passionate about doing it well.
+## Prerequisite
 
-This is your chance to show the team how you approach problems and give us insight into your abilities. For the challenge, you are required to design, develop, and style a Full Stack application using Node as the API and React as the front-end. Feel free to use any third party libraries you see fit. You will have **4 days** to submit a solution for the given requirements. If you need more time due to schedule conflicts, just let us know. We value people with good communication skills. We strongly prefer that whatever you do, you do it well, as opposed to trying to razzle dazzle us. Please read all the instructions carefully and email us if you have any questions.
+In order to build and run the application you need to have the following installed
 
-## Getting Started
+- MySql with a root user
+- Nodejs
+- Port `3000` and `8080` are available
 
-First, fork this repository into your own GitHub account. Then complete each of the parts below, working as you would in a professional environment. Once you have completed all the sections, please update the README, to reflect how to build and run your application, as well as any architectural decisions you have made. Add your deployment url to your github repo so we can test the deployed application. When you believe you are ready to submit your challenge, submit a pull request into our master branch. We will see the notification and get back to you on next steps.
+## Local Development
 
-## What we are looking for
+The first step is to setup the database and seed it with sample data.
 
-- Ability to set up a REST API (Node preferred).
-- Ability to set up a Relational Database
-- Understanding of the HTTP protocol and how it works with REST API conventions
-- Understanding the basics of CRUD
-  - Create
-  - Read
-  - Update
-  - Delete
-- Ability to layout and design an HTML page with CSS
-- Ability to create an intuitive UI using a front-end framework (React preferred)
-- Ability to use Javascript on the front-end to interact with a REST API
-- Ability to develop automated tests for your application
-- Ability to translate user stories into a web application
-- Ability to deploy a front-end and back-end stack.
+### 1. Migrations
 
-## The Challenge
+Run the following script
 
-### Intro
+```bash
+$ ./db.sh
+```
 
-Build an application that will be a directory of companies, and the people who have founded them. The main page should be a list of all the companies with some high-level information (Name, Short Description, City, State). When the user clicks on a company, show its details. Included in those details will be the founding members of company and a long description.
+Enter your login root password and the local instance of MySql will be setup with the
+necessary tables.
 
-### Part 1 : Companies Index
+Next to seed the data run
 
-1. Create the basic layout for the page
-2. Create a list view of all companies
+```bash
+$ npm run migrations
+```
 
-- Company Name
-- Company Location
-- Short Description
+For testing
 
-3. Add ability to create a new company
+```bash
+$ npm run migrations:test
+```
 
-![step 1](Step_1.png)
+### 2. Installation
 
-### Part 2 : Companies Create
+Install the local packages by running
 
-1. Implement form to create a new company
-2. Fields
-   - Company Name **required**
-   - Company Location (City, State) **required**
-   - Company Description **required**
-   - Founded Date
+```bash
+$ npm ci
+```
 
-![step 2](Step_2.png)
+### 3. Build and Start server
 
-### Part 3 : Company Details
+First we are going to make the build and start the server. Run the following script
 
-1. Shows all of the Company's information
-2. Ability to update Company
-3. Ability to delete Company
+```bash
+$ npm run start:server
+```
 
-![step 3](Step_3.png)
+It removed the `./dist` directory and run compiles the server
 
-### Part 4 : Founders
+Then build and run the client by:
 
-1. In the Company details add the ability to add a Founder to a Company.
-2. Each Founder can only belong to a single company.
-3. Founder Fields
-   - Founder Full Name
-   - Founder Title
-4. Founders added should display in the company detail page.
+```bash
+$ npm run start:client
+```
 
-![step 4](Step_4.png)
+Webpack will make a development build and start a server in watch mode. A new browser windo
+should open and the app will start
 
-### Part 5 : Tests
+### 4. Production Deployment
 
-Create a test suite for your application, writing unit and or functional tests that adequately cover the code base. TDD-ers will have already completed this challenge.
+After making any changes you can deploy the app by pushing the code to the remote `production`
 
-### Part 6 : Deployment
+```bash
+$ git push production main
+```
 
-Sign-up for a Heroku account or AWS (or other provider) and deploy your application to the web. Please provide us with the deployed URL. Please seed your application with at least a dozen Companies and Founders.
+where `main` is the master branch
 
-### Next Steps
+This will run local `pre_push` hook to run tests before pushing and the remote will make
+a production build and launch the app on the following url:
 
-If you move onto the next stage of the interview process we will have you come in and pair program with our engineers and build on top of your code base. Example features we might implement together would be to add category tags, add a search component or add images to Companies and Founders using a third party hosting service.
+[http://ec2-18-216-240-53.us-east-2.compute.amazonaws.com/](http://ec2-18-216-240-53.us-east-2.compute.amazonaws.com/)
+
+## Architectural Challenges
+
+### 1. Whether to use a toolchain or build on my own?
+
+There are many toolchains that can setup the front-end app or the deployment chain.
+I decided to build from scratch because the app is fairly simple and these tool chains
+sometimes come with other packages that would never get used.
+
+They also hide a lot of implementation or deployment details from the developer and that does
+make the task of developer easy but I wanted to be able to configure things on my own.
+
+### 2. How to setup the folder structure?
+
+There are numerour approaches to setup the folders and file structure. I decided to setup
+my workspace based on how information flows and control is passed. I wanted my folder structure
+to layout the actual architecture of the app
+
+The `client` and `server` folders are separate because these are distinct projects. However, they do share common packages and configurations. These commonalities remain in the root folder and the configurations can be extended and overwritten by the individual app.
+
+These project then have the `src` folder which contains the running code. The `server` project
+has the `routes` folder to contain the routes, whereas the `client` has a similar `pages` folder.
+
+### 3. What is the relationship between Companies and Founders?
+
+Since "Each Founder can only belong to a single company" then we are looking at a 1-to-many
+relationship where one Company has many Founders. I decided to have the `companyId` as part of
+`founders` table to ensure that each unique founder would have a company. That way 2 founders cannot belong to the same company. I added a `FOREIGN KEY` constraint so that a company cannot be deleted without deleting the corresponding founders, otherwise we will have founders not
+belonging to any company.
+
+### 4. What operations the API will support?
+
+Based on the requirements the following operations should be supported:
+
+#### Companies
+
+1. GET for listing of all companies for the main page
+2. GET for a particular company for details
+3. PUT for editing a particular company
+4. POST for adding a new company
+5. DELETE for deleting a company
+
+#### Founders
+
+1. GET for listing of all founders by company
+2. POST for adding and editing founders.
+
+For founders the POST was used for editing and adding because the client sends a single array
+of founders and some of them maybe new and some modified.
+
+### 5. Is editing and creating of companies part of same component or different?
+
+Editing and creating of companies have the same UI so it seems reasonable to use the same component. However, I decided to make them separate to reflect the route because in a user's
+mind they are different operations. Though, in future some of the code can be refactored
+
+## Future Improvements
+
+There are a number of improvements that can be made. Some are listed below:
+
+1. Add more tests especially on the client side
+2. Add validation on the backend.
+3. Add linting
+4. Improve the UI design
+5. Add linting and testing to the deployment steps
+6. Improve bundling to have chunking
