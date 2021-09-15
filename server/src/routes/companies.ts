@@ -71,14 +71,22 @@ router.delete('/companies/:companyId', async (req, res) => {
   const companyId = req.params.companyId;
 
   try {
-    const result = await query("DELETE FROM companies WHERE companyId = ?", companyId);
-
-    if (result.affectedRows) {
-      connection.destroy();
-      res.json(null)
+    const deleteFounders = await query("DELETE FROM founders WHERE companyId = ?", companyId);
+    if (deleteFounders.affectedRows) {
+      const result = await query("DELETE FROM companies WHERE companyId = ?", companyId);
+      if (result.affectedRows) {
+        connection.destroy();
+        res.json(null)
+      }
+      else {
+        connection.destroy();
+        throw Error('could not delete companies')
+      }
     }
+
     else {
-      throw Error('nothing to delete')
+      connection.destroy();
+      throw Error('could not delete founders')
     }
   }
   catch (error) {

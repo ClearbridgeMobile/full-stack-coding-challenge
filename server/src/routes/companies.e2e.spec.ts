@@ -128,6 +128,11 @@ describe('DELETE "/api/companies/:companyId"', () => {
 
     const subject = await query(`INSERT INTO companies (name, city, state, description, founded) 
     VALUES("${randomstring.generate(5)}", "${randomstring.generate(5)}", "${randomstring.generate(5)}","${randomstring.generate(15)}", "${date}")`)
+
+    await query(`INSERT INTO founders (firstName, lastName, title, companyId) 
+    VALUES("${randomstring.generate(5)}", "${randomstring.generate(5)}", "${randomstring.generate(5)}", "${subject.insertId}")`)
+
+
     connection.destroy();
 
     let res = await request.get('/api/companies')
