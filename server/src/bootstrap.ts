@@ -9,12 +9,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.resolve('dist', 'client', 'src')))
 
+app.use('/api', companies);
+app.use('/api', founders);
+
 app.get('/*', (_req, res) => {
   res.sendFile(path.resolve('dist', 'client', 'src', 'index.html'));
 });
 
 
-app.use('/api', companies);
-app.use('/api', founders);
 
 export default app;
