@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.resolve('dist', 'client', 'src')))
 
-app.get('/', (_req, res) => {
+app.get('/*', (_req, res) => {
   res.sendFile(path.resolve('dist', 'client', 'src', 'index.html'));
 });
 
