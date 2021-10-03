@@ -1,6 +1,6 @@
-API/node_modules
-API/.serverless
-UI/node_modules
-UI/.serverless
-node_modules
-.serverless
+API/node_modules/
+API/.serverless/
+UI/node_modules/
+UI/.serverless/
+node_modules/
+.serverless/
