@@ -1,0 +1,27 @@
+{
+  "name": "clearbridge-codechallenge-api",
+  "version": "1.0.0",
+  "description": "Serverless CRUD service exposing a REST HTTP interface",
+  "author": "",
+  "license": "",
+  "scripts": {
+    "test": "node_modules/.bin/mocha test"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.1.0",
+    "pg": "^7.18.2",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
+    "husky": "^7.0.1",
+    "mocha": "^9.1.2",
+    "serverless-mocha-plugin": "^1.12.0",
+    "sinon": "^9.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    }
+  }
+}

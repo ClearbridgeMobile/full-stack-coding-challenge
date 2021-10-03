@@ -1,0 +1,93 @@
+org: igorkulishov
+service: clearbridge-companies-api
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-mocha-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  stage: dev
+  memorySize: 256
+  lambdaHashingVersion: 20201221
+  environment:
+    POSTGRESQL_HOST: ${self:custom.POSTGRESQL.HOST}
+    POSTGRESQL_PORT: ${self:custom.POSTGRESQL.PORT}
+    DB_NAME: ${self:custom.DB_NAME}
+    USERNAME: ${self:custom.USERNAME}
+    PASSWORD: ${self:custom.PASSWORD}
+
+custom:
+  DB_NAME: companies
+  USERNAME: master
+  PASSWORD: password
+  POSTGRESQL:
+    HOST:
+      !GetAtt PostgreSqlRDSInstance.Endpoint.Address
+    PORT:
+      !GetAtt PostgreSqlRDSInstance.Endpoint.Port
+
+functions:
+  auth:
+    handler: auth/auth.auth
+
+  create:
+    handler: controllers/create-company.create
+    events:
+      - http:
+          path: company
+          method: put
+          cors: true
+          integration: LAMBDA
+
+  list:
+    handler: controllers/list-all-companies.list
+    events:
+      - http:
+          path: companies
+          method: get
+          cors: true
+          integration: LAMBDA
+
+  getByCompanyId:
+    handler: controllers/get-company-info.getByCompanyId
+    events:
+      - http:
+          path: company/{id}
+          method: get
+          cors: true
+          integration: LAMBDA
+
+  update:
+    handler: controllers/update-company.update
+    events:
+      - http:
+          path: company/{id}
+          method: post
+          cors: true
+          integration: LAMBDA
+
+  delete:
+    handler: controllers/delete-copany.delete
+    events:
+      - http:
+          path: company/{id}
+          method: delete
+          cors: true
+          integration: LAMBDA
+
+resources:
+  Resources:
+    PostgreSqlRDSInstance:
+      Type: AWS::RDS::DBInstance
+      Properties:
+        MasterUsername: ${self:custom.USERNAME}
+        MasterUserPassword: ${self:custom.PASSWORD}
+        AllocatedStorage: 20
+        DBName: ${self:custom.DB_NAME}
+        DBInstanceClass: db.t3.micro
+        Engine: postgres
+        PubliclyAccessible: true
