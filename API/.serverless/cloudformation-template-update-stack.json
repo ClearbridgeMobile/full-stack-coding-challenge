@@ -191,7 +191,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/clearbridge-companies-api/dev/1633295882579-2021-10-03T21:18:02.579Z/clearbridge-companies-api.zip"
+          "S3Key": "serverless/clearbridge-companies-api/dev/1633297258807-2021-10-03T21:40:58.807Z/clearbridge-companies-api.zip"
         },
         "Handler": "auth/auth.auth",
         "Runtime": "nodejs12.x",
@@ -235,7 +235,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/clearbridge-companies-api/dev/1633295882579-2021-10-03T21:18:02.579Z/clearbridge-companies-api.zip"
+          "S3Key": "serverless/clearbridge-companies-api/dev/1633297258807-2021-10-03T21:40:58.807Z/clearbridge-companies-api.zip"
         },
         "Handler": "controllers/create-company.create",
         "Runtime": "nodejs12.x",
@@ -279,7 +279,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/clearbridge-companies-api/dev/1633295882579-2021-10-03T21:18:02.579Z/clearbridge-companies-api.zip"
+          "S3Key": "serverless/clearbridge-companies-api/dev/1633297258807-2021-10-03T21:40:58.807Z/clearbridge-companies-api.zip"
         },
         "Handler": "controllers/list-all-companies.list",
         "Runtime": "nodejs12.x",
@@ -323,7 +323,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/clearbridge-companies-api/dev/1633295882579-2021-10-03T21:18:02.579Z/clearbridge-companies-api.zip"
+          "S3Key": "serverless/clearbridge-companies-api/dev/1633297258807-2021-10-03T21:40:58.807Z/clearbridge-companies-api.zip"
         },
         "Handler": "controllers/get-company-info.getByCompanyId",
         "Runtime": "nodejs12.x",
@@ -367,7 +367,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/clearbridge-companies-api/dev/1633295882579-2021-10-03T21:18:02.579Z/clearbridge-companies-api.zip"
+          "S3Key": "serverless/clearbridge-companies-api/dev/1633297258807-2021-10-03T21:40:58.807Z/clearbridge-companies-api.zip"
         },
         "Handler": "controllers/update-company.update",
         "Runtime": "nodejs12.x",
@@ -411,7 +411,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/clearbridge-companies-api/dev/1633295882579-2021-10-03T21:18:02.579Z/clearbridge-companies-api.zip"
+          "S3Key": "serverless/clearbridge-companies-api/dev/1633297258807-2021-10-03T21:40:58.807Z/clearbridge-companies-api.zip"
         },
         "Handler": "controllers/delete-copany.delete",
         "Runtime": "nodejs12.x",
@@ -448,64 +448,64 @@
         "DeleteLogGroup"
       ]
     },
-    "AuthLambdaVersionPZTnxC5AHt5DaDsyY6Lp2GiLI9FkhElQfdeezlQIsk": {
+    "AuthLambdaVersionkN2aevT6WOrfHAT363T53tBAK0gGHegMF7mfUEg3ivU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AuthLambdaFunction"
         },
-        "CodeSha256": "z5g643RRuCIdnJNRjUY2WEMlo1fRi3bCohGKI6t6M8c="
+        "CodeSha256": "pj+k4gvJ5NYaxI1CYmyNzcar4M3ND5zKE/F3Pqfqfpw="
       }
     },
-    "CreateLambdaVersionF4rbz8ZoF4elFIbangWalII2XSXEI1oo0aDikj5vnY": {
+    "CreateLambdaVersionivEBhCBqK5uGWRH4blDv82THlzbXZkeAEdyzSFktOk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateLambdaFunction"
         },
-        "CodeSha256": "z5g643RRuCIdnJNRjUY2WEMlo1fRi3bCohGKI6t6M8c="
+        "CodeSha256": "pj+k4gvJ5NYaxI1CYmyNzcar4M3ND5zKE/F3Pqfqfpw="
       }
     },
-    "ListLambdaVersionIScu3zLm4ktIcuC3bF33ZozWuZxfOaXh18WlIgtL9oo": {
+    "ListLambdaVersion6UgDeQTiDLaUr6yvwlen9zdtduJ6z83cI1kcp6ItDyA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListLambdaFunction"
         },
-        "CodeSha256": "z5g643RRuCIdnJNRjUY2WEMlo1fRi3bCohGKI6t6M8c="
+        "CodeSha256": "pj+k4gvJ5NYaxI1CYmyNzcar4M3ND5zKE/F3Pqfqfpw="
       }
     },
-    "GetByCompanyIdLambdaVersion3lGwOerTyJPLqoRHFvSpZwNvCgUNtns3UQYCsUzbQg": {
+    "GetByCompanyIdLambdaVersione1KoSusi934MDD8vwm20Xq1iQ1Hab0tUgXigMBSSQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetByCompanyIdLambdaFunction"
         },
-        "CodeSha256": "z5g643RRuCIdnJNRjUY2WEMlo1fRi3bCohGKI6t6M8c="
+        "CodeSha256": "pj+k4gvJ5NYaxI1CYmyNzcar4M3ND5zKE/F3Pqfqfpw="
       }
     },
-    "UpdateLambdaVersionimTMvspghjnavxPvarMfSHjQjfrnpU6GE0uxe1Blg": {
+    "UpdateLambdaVersionN4XWdhY3nnj19cV0lI8o79XE0TzAvTwT5skVPjt9E": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateLambdaFunction"
         },
-        "CodeSha256": "z5g643RRuCIdnJNRjUY2WEMlo1fRi3bCohGKI6t6M8c="
+        "CodeSha256": "pj+k4gvJ5NYaxI1CYmyNzcar4M3ND5zKE/F3Pqfqfpw="
       }
     },
-    "DeleteLambdaVersiontqNiCDTwKnikkxlujJBrUbfldJZwwPkKImq7Z5lhVNk": {
+    "DeleteLambdaVersionZTFGQIOQq9Pp6RhMzyW04aFGUizd0Tv0BbItBbbLo": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DeleteLambdaFunction"
         },
-        "CodeSha256": "z5g643RRuCIdnJNRjUY2WEMlo1fRi3bCohGKI6t6M8c="
+        "CodeSha256": "pj+k4gvJ5NYaxI1CYmyNzcar4M3ND5zKE/F3Pqfqfpw="
       }
     },
     "ApiGatewayRestApi": {
@@ -1642,7 +1642,7 @@
         "DeleteLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1633295878306": {
+    "ApiGatewayDeployment1633297255267": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1871,7 +1871,7 @@
     "AuthLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AuthLambdaVersionPZTnxC5AHt5DaDsyY6Lp2GiLI9FkhElQfdeezlQIsk"
+        "Ref": "AuthLambdaVersionkN2aevT6WOrfHAT363T53tBAK0gGHegMF7mfUEg3ivU"
       },
       "Export": {
         "Name": "sls-clearbridge-companies-api-dev-AuthLambdaFunctionQualifiedArn"
@@ -1880,7 +1880,7 @@
     "CreateLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateLambdaVersionF4rbz8ZoF4elFIbangWalII2XSXEI1oo0aDikj5vnY"
+        "Ref": "CreateLambdaVersionivEBhCBqK5uGWRH4blDv82THlzbXZkeAEdyzSFktOk"
       },
       "Export": {
         "Name": "sls-clearbridge-companies-api-dev-CreateLambdaFunctionQualifiedArn"
@@ -1889,7 +1889,7 @@
     "ListLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListLambdaVersionIScu3zLm4ktIcuC3bF33ZozWuZxfOaXh18WlIgtL9oo"
+        "Ref": "ListLambdaVersion6UgDeQTiDLaUr6yvwlen9zdtduJ6z83cI1kcp6ItDyA"
       },
       "Export": {
         "Name": "sls-clearbridge-companies-api-dev-ListLambdaFunctionQualifiedArn"
@@ -1898,7 +1898,7 @@
     "GetByCompanyIdLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetByCompanyIdLambdaVersion3lGwOerTyJPLqoRHFvSpZwNvCgUNtns3UQYCsUzbQg"
+        "Ref": "GetByCompanyIdLambdaVersione1KoSusi934MDD8vwm20Xq1iQ1Hab0tUgXigMBSSQ"
       },
       "Export": {
         "Name": "sls-clearbridge-companies-api-dev-GetByCompanyIdLambdaFunctionQualifiedArn"
@@ -1907,7 +1907,7 @@
     "UpdateLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateLambdaVersionimTMvspghjnavxPvarMfSHjQjfrnpU6GE0uxe1Blg"
+        "Ref": "UpdateLambdaVersionN4XWdhY3nnj19cV0lI8o79XE0TzAvTwT5skVPjt9E"
       },
       "Export": {
         "Name": "sls-clearbridge-companies-api-dev-UpdateLambdaFunctionQualifiedArn"
@@ -1916,7 +1916,7 @@
     "DeleteLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DeleteLambdaVersiontqNiCDTwKnikkxlujJBrUbfldJZwwPkKImq7Z5lhVNk"
+        "Ref": "DeleteLambdaVersionZTFGQIOQq9Pp6RhMzyW04aFGUizd0Tv0BbItBbbLo"
       },
       "Export": {
         "Name": "sls-clearbridge-companies-api-dev-DeleteLambdaFunctionQualifiedArn"

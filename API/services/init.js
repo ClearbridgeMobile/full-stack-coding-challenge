@@ -10,10 +10,9 @@ module.exports.init = async function() {
             user: process.env.USERNAME,
             password: process.env.PASSWORD
         });
-        client.connect();
-        console.log(process.env.POSTGRESQL_HOST);
-        console.log(process.env.USERNAME);
-        console.log('connected DB');
+        client.connect()
+            .then(() => console.log('connected'))
+            .catch(err => console.error('connection error', err.stack));
         await table.init(client);
         client.end();
     } catch (e) {
