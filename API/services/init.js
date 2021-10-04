@@ -10,9 +10,15 @@ module.exports.init = async function() {
             user: process.env.USERNAME,
             password: process.env.PASSWORD
         });
-        client.connect()
-            .then(() => console.log('connected'))
-            .catch(err => console.error('connection error', err.stack));
+        console.log('about to connect')
+        client.connect(err => {
+            if (err) {
+                console.error('connection error', err.stack)
+            } else {
+                console.log('connected')
+            }
+        })
+        console.log('after connection')
         await table.init(client);
         client.end();
     } catch (e) {

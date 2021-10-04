@@ -21,7 +21,7 @@ provider:
     PASSWORD: ${self:custom.PASSWORD}
 
 custom:
-  DB_NAME: companies
+  DB_NAME: companies_info
   USERNAME: master
   PASSWORD: password
   POSTGRESQL:
