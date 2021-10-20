@@ -1,9 +1,18 @@
 'use strict';
-const AWS = require('aws-sdk');
-const { companies } = require('../constants/temp-store/store');
+const db = require('../db/init');
 
-module.exports.list = (event, context, callback) => {
-  callback(null, {
-    companies
-  });
+module.exports.list = async (event, context, callback) => {
+  const client = await db.init();
+  if(!client && !client.query) {
+    callback({
+      statusCode: 400,
+      headers: { 'Content-Type': 'application/json' },
+      body: 'Couldn\'t connect to database, connection times out',
+    }, null);
+  }
+  const text = 'select * from companies_info';
+  console.log('list client query')
+  const result = await client.query(text);
+  client.end();
+  return result;
 };
