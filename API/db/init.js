@@ -1,8 +1,8 @@
-// const { Client } = require('pg')
-const { Pool } = require('pg');
+const { Client } = require('pg')
+// const { Pool } = require('pg');
 const table = require('./create-table');
-let client;
-const pool = new Pool({
+// let client;
+const client = new Client({
     host: process.env.POSTGRESQL_HOST,
     port: process.env.POSTGRESQL_PORT,
     database: process.env.DB_NAME,
@@ -10,17 +10,17 @@ const pool = new Pool({
     password: process.env.PASSWORD
 });
 module.exports.init = async () => {
-    if(client) {
-        console.log('client defined', JSON.stringify(client))
-        return client;
-    } else {
+    // if(client) {
+    //     console.log('client defined', JSON.stringify(client))
+    //     return client;
+    // } else {
         try {
-            console.log('pool.connect', JSON.stringify(pool.connect));
-            client = await pool.connect();
+            console.log('pool.connect', JSON.stringify(client.connect));
+            await client.connect();
             await table.init(client);
             return client;
         } catch (e) {
             console.error(e);
         }
-    }
+    // }
 }
