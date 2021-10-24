@@ -1,36 +1,28 @@
 'use strict';
+const db = require('../db/init');
 
-const AWS = require('aws-sdk');
-const { companies } = require('../constants/temp-store/store');
-const { findCompany, deleteCompany } = require('../services/utils');
+module.exports.delete = async (event, context, callback) => {
+  const client = await db.init();
 
-module.exports.delete = (event, context, callback) => {
+  if(!client && !client.query) {
+    callback({
+      statusCode: 400,
+      headers: { 'Content-Type': 'application/json' },
+      body: 'Something went wrong',
+    }, null);
+  }
+
   const companyId = event.path.id;
-  let deletedCompanyIndex = null;
-  let deletedCompanyID = null;
   if(!companyId) {
     console.error('Validation Failed');
     callback({
       statusCode: 400,
       headers: { 'Content-Type': 'application/json' },
-      body: 'Couldn\'t delete the company. Insufficient data',
+      body: 'Please specify all parameters of request',
     }, null);
     return;
   }
-  deletedCompanyIndex = findCompany(companies, companyId);
-  if(deletedCompanyIndex >= 0) {
-    deletedCompanyID = companies[deletedCompanyIndex].id;
-    deleteCompany(companies, deletedCompanyIndex);
-    callback(null, {
-      message: 'company successfully deleted',
-      status: 'Ok',
-      companyId: deletedCompanyID
-    });
-  } else {
-    callback(null, {
-      statusCode: 204,
-      headers: { 'Content-Type': 'application/json' },
-      body: 'Couldn\'t delete the company. Company doesn\'t exist',
-    });
-  }
+  /** Delete company **/
+  const text = 'delete from companies_info where id = $1 RETURNING *';
+  return await client.query(text, [companyId]);
 };

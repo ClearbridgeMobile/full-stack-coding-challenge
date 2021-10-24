@@ -1,28 +1,32 @@
 'use strict';
-const AWS = require('aws-sdk');
-const { companies } = require('../constants/temp-store/store');
-const { findCompany } = require('../services/utils');
+const db = require('../db/init');
 
-module.exports.getByCompanyId = (event, context, callback) => {
+module.exports.getByCompanyId = async (event, context, callback) => {
+  const client = await db.init();
+
+  if(!client && !client.query) {
+    callback({
+      statusCode: 400,
+      headers: { 'Content-Type': 'application/json' },
+      body: 'Something went wrong',
+    }, null);
+  }
+
   const companyId = event.path.id;
-  let foundCompanyIndex = null;
   if(!companyId) {
     console.error('Validation Failed');
     callback({
       statusCode: 400,
       headers: { 'Content-Type': 'application/json' },
-      body: 'Couldn\'t find the company. Insufficient data',
+      body: 'Please specify all parameters of request',
     }, null);
     return;
   }
-  foundCompanyIndex = findCompany(companies, companyId);
-  if(foundCompanyIndex >= 0) {
-    callback(null, companies[foundCompanyIndex]);
-  } else {
-    callback(null, {
-      statusCode: 204,
-      headers: { 'Content-Type': 'application/json' },
-      body: 'Couldn\'t find the company. Company doesn\'t exist',
-    });
+  /** Find company **/
+  const query = {
+    name: 'fetch-company',
+    text: 'SELECT * FROM companies_info WHERE id = $1',
+    values: [companyId],
   }
+  return await client.query(query);
 };

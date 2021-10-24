@@ -1,49 +1,54 @@
 'use strict';
-const AWS = require('aws-sdk');
-const { companies } = require('../constants/temp-store/store');
-const { findCompany, updateCompany } = require('../services/utils');
+const db = require('../db/init');
 
-module.exports.update = (event, context, callback) => {
+module.exports.update = async (event, context, callback) => {
+  const client = await db.init();
   let data;
-  let updatedCompanyIndex = null;
-  const companyId = event.path.id
-  const timestamp = Date.now();
+
+  if(!client && !client.query) {
+    callback({
+      statusCode: 400,
+      headers: { 'Content-Type': 'application/json' },
+      body: 'Something went wrong',
+    }, null);
+    return;
+  }
+
+  const companyId = event.path.id;
   if(typeof event.body === 'string') {
     data = JSON.parse(event.body);
   } else {
     data = event.body;
   }
-  if (!companyId || !data.companyName || !data.companyLocationCity || !data.companyLocationState || !data.companyFoundedDate || !data.companyDescription) {
+  if (!companyId || !data || !data.name || !data.locationCity || !data.locationState || !data.foundedDate || !data.founderFullName || !data.founderPosition || !data.description) {
     console.error('Validation Failed');
     callback({
       statusCode: 400,
       headers: { 'Content-Type': 'application/json' },
-      body: 'Couldn\'t update the company item. Insufficient data',
+      body: 'Please specify all parameters of request',
     }, null);
-  } else {
-    updatedCompanyIndex = findCompany(companies, companyId);
-    if(updatedCompanyIndex >= 0) {
-      const updatedCompany = {
-        ...companies[updatedCompanyIndex],
-        companyName: data.companyName,
-        companyLocationCity: data.companyLocationCity,
-        companyLocationState: data.companyLocationState,
-        companyFoundedDate: data.companyFoundedDate,
-        companyDescription: data.companyDescription,
-        updatedAt: timestamp
-      };
-      updateCompany(companies, updatedCompanyIndex, updatedCompany);
-      callback(null, {
-        message: 'company successfully updated',
-        status: 'Ok',
-        company: updatedCompany
-      });
-    } else {
-      callback(null, {
-        statusCode: 204,
-        headers: { 'Content-Type': 'application/json' },
-        body: 'Couldn\'t update the company. Company doesn\'t exist',
-      });
-    }
+    return;
   }
+  /** Update company **/
+  const text = `update companies_info set
+  name = ($1), 
+  location_city = ($2), 
+  location_state = ($3), 
+  founded_date = ($4), 
+  founder_full_name = ($5), 
+  founder_position = ($6), 
+  description = ($7)
+  where id = $8
+  RETURNING *`;
+  const values = [
+    data.name,
+    data.locationCity,
+    data.locationState,
+    data.foundedDate,
+    data.founderFullName,
+    data.founderPosition,
+    data.description,
+    companyId
+  ];
+  return await client.query(text, values);
 };

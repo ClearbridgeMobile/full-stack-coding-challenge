@@ -9,8 +9,9 @@ module.exports.create = async (event, context, callback) => {
       callback({
           statusCode: 400,
           headers: { 'Content-Type': 'application/json' },
-          body: 'Couldn\'t connect to database, connection times out',
+          body: 'Something went wrong. Please try again later.',
       }, null);
+      return;
   }
 
   if(typeof event.body === 'string') {
@@ -18,7 +19,6 @@ module.exports.create = async (event, context, callback) => {
   } else {
     data = event.body;
   }
-
   if (!data || !data.name || !data.locationCity || !data.locationState || !data.foundedDate || !data.founderFullName || !data.founderPosition || !data.description) {
     console.error('Validation Failed');
     callback({
@@ -39,8 +39,5 @@ module.exports.create = async (event, context, callback) => {
     data.founderPosition,
     data.description
   ];
-  const result = await client.query(text, values);
-  console.log('client.release', JSON.stringify(client.release));
-  client.end();
-  return result;
+  return await client.query(text, values);
 };

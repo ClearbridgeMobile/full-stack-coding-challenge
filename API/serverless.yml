@@ -71,7 +71,7 @@ functions:
           integration: LAMBDA
 
   delete:
-    handler: controllers/delete-copany.delete
+    handler: controllers/delete-company.delete
     events:
       - http:
           path: company/{id}
