@@ -3,7 +3,7 @@ import { StyledButton } from '../styledComponents/StyledForm';
 
 const AddCompanyButton = ({ navigate }) => {
   const AddCompanyHandler = () => {
-    navigate(`/add-company`);
+    navigate(`/add-update-company`);
   };
 
   return (

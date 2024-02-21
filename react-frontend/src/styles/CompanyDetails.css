@@ -1,0 +1,10 @@
+.details-box {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px;
+}
+
+.flex-container {
+  display: flex;
+}

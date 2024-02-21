@@ -25,6 +25,24 @@ describe('handleInternalServerError', () => {
   });
 });
 
+describe('buildSetClauses', () => {
+  it('should build setClauses and queryValues for valid fields', () => {
+    const fields = { name: 'John', age: 30, city: undefined };
+    const result = utils.buildSetClauses(fields);
+
+    expect(result.query).toBe('name = ?, age = ?');
+    expect(result.values).toEqual(['John', 30]);
+  });
+
+  it('should handle empty fields', () => {
+    const fields = {};
+    const result = utils.buildSetClauses(fields);
+
+    expect(result.query).toBe('');
+    expect(result.values).toEqual([]);
+  });
+});
+
 describe('validateRequiredFields', () => {
     let mockRes;
   
@@ -53,4 +71,5 @@ describe('validateRequiredFields', () => {
       expect(mockRes.json).toHaveBeenCalledWith({ error: 'All fields are required' });
     });
   });
+  
   

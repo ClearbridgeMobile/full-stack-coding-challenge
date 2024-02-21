@@ -3,6 +3,20 @@ function handleInternalServerError(error, res) {
   return res.status(500).send('Internal Server Error');
 }
 
+function buildSetClauses(fields) {
+  const setClauses = [];
+  const queryValues = [];
+
+  for (const [key, value] of Object.entries(fields)) {
+    if (value !== undefined) {
+      setClauses.push(`${key} = ?`);
+      queryValues.push(value);
+    }
+  }
+
+  return { query: setClauses.join(', '), values: queryValues };
+}
+
 function validateRequiredFields(fields, res) {
   const isValid = fields.every((field) => field !== undefined);
 
@@ -15,5 +29,6 @@ function validateRequiredFields(fields, res) {
 
 module.exports = {
   handleInternalServerError,
+  buildSetClauses,
   validateRequiredFields
 };

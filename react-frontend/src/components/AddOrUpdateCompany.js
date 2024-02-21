@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addCompany } from '../actions/companyActions';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCompany, updateCompany } from '../actions/companyActions';
 import { saveCompany } from '../services/companyServices';
+import { formatDate } from '../utils/commonUtils';
 import { StyledForm, StyledLabel, StyledInput, StyledButton, StyledTextarea, FormContainer, StyledTitle } from '../styledComponents/StyledForm';
 
 const AddOrUpdateCompany = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const companiesList = useSelector((state) => state.companies.companiesList);
   const [formData, setFormData] = useState({
     name: '',
     city: '',
@@ -15,6 +18,24 @@ const AddOrUpdateCompany = () => {
     description: '',
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      const existingCompany = companiesList.find((company) => company.companyId == id);
+
+      if (existingCompany) {
+        setFormData({
+          name: existingCompany.name,
+          city: existingCompany.city,
+          state: existingCompany.state,
+          foundedDate: existingCompany.foundedDate,
+          description: existingCompany.description,
+        });
+      } else {
+        console.error(`Company with ID ${id} not found in companiesList.`);
+      }
+    }
+  }, [id, companiesList]);
 
   const handleChange = (e) => {
     setFormData({
@@ -27,17 +48,17 @@ const AddOrUpdateCompany = () => {
     e.preventDefault();
 
     try {
-      const addedCompany = await saveCompany(formData);
-      dispatch(addCompany(addedCompany));
-      console.log('Company added successfully!');
-      navigate('/');
+      const updatedCompany = await saveCompany(formData, id);
+      id ? dispatch(updateCompany(updatedCompany)) : dispatch(addCompany(updatedCompany));
+      console.log(`Company ${id ? 'updated' : 'added'} successfully!`);
+      id ? navigate(`/company-details/${id}`) : navigate("/");
     } catch (error) {
       console.error(error.message);
     }
   };
 
   const cancelHandler = () => {
-    navigate('/');
+    id ? navigate(`/company-details/${id}`) : navigate("/");
   };
 
   const renderFormFields = () => (
@@ -56,7 +77,7 @@ const AddOrUpdateCompany = () => {
       </StyledLabel>
       <StyledLabel>
         Founded Date:
-        <StyledInput type="date" name="foundedDate" value={formData.foundedDate} onChange={handleChange} />
+        <StyledInput type="date" name="foundedDate" value={formData.foundedDate ? formatDate(formData.foundedDate) : ""} onChange={handleChange} />
       </StyledLabel>
       <StyledLabel>
         Description:
@@ -67,11 +88,11 @@ const AddOrUpdateCompany = () => {
 
   return (
     <div>
-      <StyledTitle>Add Company</StyledTitle>
+      <StyledTitle>{id ? 'Edit' : 'Add'} Company</StyledTitle>
       <FormContainer>
         <StyledForm onSubmit={handleSubmit}>
           {renderFormFields()}
-          <StyledButton type="submit">Add Company</StyledButton>
+          <StyledButton type="submit">{id ? 'Update' : 'Add'} Company</StyledButton>
           <StyledButton onClick={cancelHandler}>Cancel</StyledButton>
         </StyledForm>
       </FormContainer>

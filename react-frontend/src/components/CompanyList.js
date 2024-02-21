@@ -33,6 +33,10 @@ const CompanyList = () => {
     }
   }, [dispatch, companiesList]);
 
+  const handleItemClick = (id) => {
+    navigate(`/company-details/${id}`);
+  };
+
   return (
     <>
       <StyledTitle>Companies</StyledTitle>
@@ -42,7 +46,7 @@ const CompanyList = () => {
         ) : companiesList.length > 0 ? (
           <div>
             {companiesList.map((company) => (
-              <div key={company.companyId}>
+              <div key={company.companyId} onClick={() => handleItemClick(company.companyId)}>
                 <CompanyPanel company={company} />
               </div>
             ))}
