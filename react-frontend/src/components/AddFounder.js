@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { addFounder } from '../services/founderServices';
 import { StyledForm, StyledLabel, StyledInput, FormContainer, StyledTitle, StyledButton } from '../styledComponents/StyledForm';
 
-
 const AddFounder = () => {
   const { id } = useParams();
   const navigate = useNavigate();

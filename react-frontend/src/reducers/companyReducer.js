@@ -8,12 +8,9 @@ const companyReducer = (state = { companiesList: [] }, action) => {
           companiesList: [...state.companiesList, action.payload],
         };
         case 'DELETE_COMPANY':
-          console.log('Action Payload:', action.payload);
-          console.log('Current Companies List:', state.companiesList);
           const updatedCompaniesList = state.companiesList.filter(
             (company) => company.companyId != action.payload
           );
-          console.log('Updated Companies List:', updatedCompaniesList);
           return {
             ...state,
             companiesList: updatedCompaniesList,

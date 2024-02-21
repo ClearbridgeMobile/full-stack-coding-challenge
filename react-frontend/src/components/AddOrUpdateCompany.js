@@ -50,7 +50,6 @@ const AddOrUpdateCompany = () => {
     try {
       const updatedCompany = await saveCompany(formData, id);
       id ? dispatch(updateCompany(updatedCompany)) : dispatch(addCompany(updatedCompany));
-      console.log(`Company ${id ? 'updated' : 'added'} successfully!`);
       id ? navigate(`/company-details/${id}`) : navigate("/");
     } catch (error) {
       console.error(error.message);

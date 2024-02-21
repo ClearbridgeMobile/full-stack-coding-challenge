@@ -1,4 +1,3 @@
-// File: tests/CompanyPanel.test.js
 import React from 'react';
 import { render } from '@testing-library/react';
 import CompanyPanel from '../components/CompanyPanel';

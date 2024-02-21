@@ -12,7 +12,7 @@ describe('handleInternalServerError', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks(); // Restore all mocked functions after each test
+    jest.restoreAllMocks();
   });
 
   it('should log the error and send a 500 response', () => {

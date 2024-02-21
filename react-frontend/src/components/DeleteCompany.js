@@ -16,7 +16,6 @@ const DeleteCompany = ({ companyId }) => {
       const isSuccess = await deleteCompanyRequest(companyId);
 
       if (isSuccess) {
-        console.log('Company deleted successfully!');
         dispatch(deleteCompany(companyId));
         navigate('/');
       } else {

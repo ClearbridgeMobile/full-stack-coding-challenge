@@ -35,7 +35,6 @@ const CompanyForm = ({ initialValues, onSubmit }) => {
       const response = await onSubmit(formData);
 
       if (response.ok) {
-        console.log('Company operation successful!');
         // For simplicity, navigating back to the company list
         navigate('/');
       } else {
