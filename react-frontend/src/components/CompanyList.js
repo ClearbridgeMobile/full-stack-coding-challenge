@@ -31,7 +31,7 @@ const CompanyList = () => {
 
       fetchData();
     }
-  }, [dispatch, companiesList]);
+  }, [dispatch, companiesList.length]);
 
   const handleItemClick = (id) => {
     navigate(`/company-details/${id}`);
@@ -53,7 +53,10 @@ const CompanyList = () => {
             <AddCompanyButton navigate={navigate} />
           </div>
         ) : (
-          <p>No data available</p>
+          <div>
+            <p>No company data available</p>
+            <AddCompanyButton navigate={navigate} />
+          </div>
         )}
       </div>
     </>
