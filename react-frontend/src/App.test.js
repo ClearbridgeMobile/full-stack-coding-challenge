@@ -21,4 +21,19 @@ describe('App Component', () => {
       expect(screen.getByText(/Loading/i)).toBeInTheDocument(); // Adjust if necessary
     });
   });
+
+  it('renders CompanyDetails component for the company-details route', async () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/company-details/1']}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    // Wait for the asynchronous rendering to complete
+    await waitFor(() => {
+      expect(screen.getByText(/Loading/i)).toBeInTheDocument(); // Adjust if necessary
+    });
+  });
 });

@@ -5,3 +5,6 @@ export const truncateDescription = (description, maxLength) => {
     return description.substring(0, maxLength) + '...';
   }
 };
+export const formatDate = (dateString) => {
+  return new Date(dateString).toISOString().split('T')[0];
+};

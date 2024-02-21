@@ -8,3 +8,13 @@ export const addCompany = (company) => ({
     payload: company,
 });
 
+export const deleteCompany = (companyId) => ({
+    type: 'DELETE_COMPANY',
+    payload: companyId,
+});
+
+export const updateCompany = (company) => ({
+    type: 'UPDATE_COMPANY',
+    payload: company,
+});
+

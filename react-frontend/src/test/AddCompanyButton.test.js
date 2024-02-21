@@ -23,6 +23,6 @@ describe('AddCompanyButton Component', () => {
     const addButton = getByText('Add Company');
     fireEvent.click(addButton);
 
-    expect(navigateMock).toHaveBeenCalledWith('/add-company');
+    expect(navigateMock).toHaveBeenCalledWith('/add-update-company');
   });
 });
