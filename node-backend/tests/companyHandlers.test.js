@@ -40,4 +40,18 @@ describe('companyHandlers', () => {
       expect(utils.handleInternalServerError).toHaveBeenCalledWith(mockError, mockResponse);
     });
   });
+
+  describe('createCompany', () => {  
+    it('should validate required fields', () => {
+      const mockCompanyData = { name: 'New Company', city: 'City' }; // Missing required fields
+      const mockRequest = { body: mockCompanyData };
+
+      companyHandlers.createCompany(mockRequest, mockResponse);
+
+      expect(utils.validateRequiredFields).toHaveBeenCalledWith(
+        ['New Company', 'City', undefined, undefined],
+        mockResponse
+      );
+    });
+  });
 });

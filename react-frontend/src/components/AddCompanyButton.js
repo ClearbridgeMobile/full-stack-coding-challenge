@@ -1,9 +1,13 @@
 import React from 'react';
 import { StyledButton } from '../styledComponents/StyledForm';
 
-const AddCompanyButton = () => {
+const AddCompanyButton = ({ navigate }) => {
+  const AddCompanyHandler = () => {
+    navigate(`/add-company`);
+  };
+
   return (
-    <StyledButton>
+    <StyledButton onClick={AddCompanyHandler}>
       Add Company
     </StyledButton>
   );
