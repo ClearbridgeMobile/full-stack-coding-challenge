@@ -46,7 +46,7 @@ const CompanyList = () => {
                 <CompanyPanel company={company} />
               </div>
             ))}
-            <AddCompanyButton />
+            <AddCompanyButton navigate={navigate} />
           </div>
         ) : (
           <p>No data available</p>

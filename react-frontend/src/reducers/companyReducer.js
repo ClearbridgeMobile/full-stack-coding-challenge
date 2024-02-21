@@ -1,11 +1,15 @@
 const companyReducer = (state = { companiesList: [] }, action) => {
-    switch (action.type) {
-      case 'SET_COMPANIES':
-        return { ...state, companiesList: action.payload };
-      default:
-        return state;
-    }
-  };
-  
-  export default companyReducer;
-  
+  switch (action.type) {
+    case 'SET_COMPANIES':
+      return { ...state, companiesList: action.payload };
+    case 'ADD_COMPANY':
+      return {
+        ...state,
+        companiesList: [...state.companiesList, action.payload],
+      };
+    default:
+      return state;
+  }
+};
+
+export default companyReducer;
