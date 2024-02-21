@@ -1,0 +1,59 @@
+.company-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.company-list-container h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.company-panel {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 0.3s;
+
+  /* Initial background color */
+  background-color: white;
+}
+
+/* Apply styles when hovering */
+.company-panel:hover {
+  background-color: #f0f0f0; 
+}
+
+.company-info {
+  flex: 1;
+}
+
+.company-name {
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.company-location {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.company-description {
+  font-size: 14px;
+  color: #777;
+}
+
+.company-panel-button {
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
