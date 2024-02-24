@@ -10,6 +10,11 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Redirect the default route to '/companies'
+app.get('/', (req, res) => {
+  res.redirect('/companies');
+});
+
 app.use('/companies', companiesRouter);
 app.use('/companies/:id/founders', foundersRouter);
 
