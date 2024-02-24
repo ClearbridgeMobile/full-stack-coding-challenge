@@ -2,9 +2,16 @@ const pool = require('../db');
 
 const getAllCompanies = async (req, res, next) => {
   try {
-    const { rows } = await pool.query(
-      'SELECT id, name, city, state, short_description FROM companies'
-    );
+    const query = `
+      SELECT c.*, f.founders
+      FROM companies c
+      LEFT JOIN (
+        SELECT company_id, ARRAY_AGG(full_name) AS founders
+        FROM founders
+        GROUP BY company_id
+      ) f ON c.id = f.company_id
+    `;
+    const { rows } = await pool.query(query);
     res.json(rows);
   } catch (error) {
     next(error);

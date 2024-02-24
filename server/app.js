@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const companiesRouter = require('./routes/companies');
 const foundersRouter = require('./routes/founders');
@@ -7,6 +8,7 @@ const errorHandler = require('./middleware/errorHandler');
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
