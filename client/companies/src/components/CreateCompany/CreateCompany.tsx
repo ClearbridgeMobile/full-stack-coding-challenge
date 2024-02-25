@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Company } from '../../common/Company';
 
 interface CompanyData {
   name: string;
@@ -9,6 +10,7 @@ interface CompanyData {
   short_description: string;
   long_description: string;
   founded_date: string;
+  company?: Company;
 }
 
 function CreateCompany() {

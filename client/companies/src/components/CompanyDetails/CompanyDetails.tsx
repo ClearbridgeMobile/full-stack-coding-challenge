@@ -44,7 +44,7 @@ const CompanyDetails = () => {
     }
   };
 
-  const handleAddFounder = async (e: FormEvent<HTMLFormElement>) => {
+  const handleAddFounder = async (e: MouseEventHandler<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post(

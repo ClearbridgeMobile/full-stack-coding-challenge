@@ -40,11 +40,6 @@ function CompaniesIndex() {
             <p>{company.short_description}</p>
             <p>Founded Date: {new Date(company.founded_date).toDateString()}</p>
             <h3>Founders:</h3>
-            <ul>
-              {company.founders.map((founder, index) => (
-                <li key={index}>{founder}</li>
-              ))}
-            </ul>
             <button className='btn'>Learn More</button>
           </div>
         </Link>
