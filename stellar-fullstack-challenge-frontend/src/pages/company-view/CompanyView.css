@@ -1,0 +1,45 @@
+.viewLayout{
+    border: 2px solid black;
+    min-height: 30rem;
+    margin: 4rem;
+    padding: 1rem;
+}
+.companyName{
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-top: 2rem;
+}
+.companyDetails{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0.5rem 1rem;
+    font-size: larger;
+}
+.viewLayout fieldset{
+    border: 2px solid black;
+}
+.founderDetails,.addFounder{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: space-around;
+    padding: 0.5rem;
+    flex-wrap: wrap;
+}
+.addFounder input{
+    height: 1.5rem;
+    border: 2px solid black;
+}
+.error{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width:600px) {
+    .companyDetails{
+        flex-direction: column;
+    }
+}
