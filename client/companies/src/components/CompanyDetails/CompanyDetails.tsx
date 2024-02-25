@@ -1,6 +1,6 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Company } from './../../common/Company';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,6 @@ const CompanyDetails = () => {
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [newFounderName, setNewFounderName] = useState('');
-  const [newFounderTitle, setNewFounderTitle] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +17,6 @@ const CompanyDetails = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/companies/${id}`
         );
-        // console.log('response.data :>> ', response.data);
         setCompany(response.data);
       } catch (error: unknown) {
         setError((error as Error).message);
@@ -41,33 +38,6 @@ const CompanyDetails = () => {
       navigate('/');
     } catch (error) {
       console.error('Error deleting company:', error);
-    }
-  };
-
-  const handleAddFounder = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/companies/${id}/founders/`,
-        {
-          full_name: newFounderName,
-          title: newFounderTitle,
-          id,
-        }
-      );
-      console.log(response.data.message); // Output success message
-
-      // Update local state with the newly added founder
-      setCompany((prevCompany) => ({
-        ...prevCompany!,
-        founders: [...prevCompany!.founders, response.data],
-      }));
-
-      // Reset input fields after adding founder
-      setNewFounderName('');
-      setNewFounderTitle('');
-    } catch (error) {
-      console.error('Failed to add founder:', error);
     }
   };
 
@@ -102,24 +72,11 @@ const CompanyDetails = () => {
             </div>
           ))}
 
-          <form onSubmit={handleAddFounder}>
-            <input
-              type='text'
-              placeholder='Enter Founder Name'
-              value={newFounderName}
-              onChange={(e) => setNewFounderName(e.target.value)}
-            />
-            <input
-              type='text'
-              placeholder='Enter Founder Title'
-              value={newFounderTitle}
-              onChange={(e) => setNewFounderTitle(e.target.value)}
-            />
-            <button type='submit'>Add Founder</button>
-          </form>
-
           <button onClick={handleEdit}>Edit Company</button>
           <button onClick={handleDelete}>Delete Company</button>
+          <Link to='/add-founder' state={{ id, company }}>
+            Add Founder
+          </Link>
         </div>
       )}
     </div>
