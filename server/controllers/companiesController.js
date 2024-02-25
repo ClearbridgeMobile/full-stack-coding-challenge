@@ -25,6 +25,7 @@ const createCompany = async (req, res, next) => {
     long_description,
     founded_date,
   } = req.body;
+
   try {
     const existingCompany = await pool.query(
       'SELECT id FROM companies WHERE name = $1',
@@ -35,11 +36,22 @@ const createCompany = async (req, res, next) => {
         .status(400)
         .json({ message: 'Company with this name already exists' });
     }
+
     await pool.query(
       'INSERT INTO companies (name, city, state, short_description, long_description, founded_date) VALUES ($1, $2, $3, $4, $5, $6)',
       [name, city, state, short_description, long_description, founded_date]
     );
-    res.json({ message: 'Company created successfully' });
+
+    // Fetch the details of the newly created company
+    const newCompany = await pool.query(
+      'SELECT * FROM companies WHERE name = $1',
+      [name]
+    );
+
+    res.json({
+      message: 'Company created successfully',
+      company: newCompany.rows[0],
+    });
   } catch (error) {
     next(error);
   }
@@ -48,9 +60,15 @@ const createCompany = async (req, res, next) => {
 const getCompanyById = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const { rows } = await pool.query('SELECT * FROM companies WHERE id = $1', [
-      id,
-    ]);
+    const query = `
+      SELECT c.*, 
+             COALESCE((SELECT ARRAY_AGG(jsonb_build_object('full_name', full_name, 'title', title)) 
+                       FROM founders 
+                       WHERE company_id = c.id), ARRAY[]::JSONB[]) AS founders
+      FROM companies c
+      WHERE c.id = $1
+    `;
+    const { rows } = await pool.query(query, [id]);
     if (rows.length === 0) {
       return res.status(404).json({ message: 'Company not found' });
     }
