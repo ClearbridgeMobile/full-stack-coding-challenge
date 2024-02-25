@@ -43,8 +43,12 @@ function CreateCompany() {
         `${import.meta.env.VITE_API_URL}/companies`,
         companyData
       );
-      console.log('Company created:', response.data);
-      navigate(`/company/${response.data.company.id}`);
+      const companyId = response.data.company?.id;
+      if (companyId) {
+        navigate(`/company/${companyId}`);
+      } else {
+        console.error('Company ID is undefined');
+      }
     } catch (error) {
       console.error('Error creating company:', error);
     }

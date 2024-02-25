@@ -44,7 +44,7 @@ const CompanyDetails = () => {
     }
   };
 
-  const handleAddFounder = async (e: MouseEventHandler<HTMLButtonElement>) => {
+  const handleAddFounder = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -102,19 +102,22 @@ const CompanyDetails = () => {
             </div>
           ))}
 
-          <input
-            type='text'
-            placeholder='Enter Founder Name'
-            value={newFounderName}
-            onChange={(e) => setNewFounderName(e.target.value)}
-          />
-          <input
-            type='text'
-            placeholder='Enter Founder Title'
-            value={newFounderTitle}
-            onChange={(e) => setNewFounderTitle(e.target.value)}
-          />
-          <button onClick={handleAddFounder}>Add Founder</button>
+          <form onSubmit={handleAddFounder}>
+            <input
+              type='text'
+              placeholder='Enter Founder Name'
+              value={newFounderName}
+              onChange={(e) => setNewFounderName(e.target.value)}
+            />
+            <input
+              type='text'
+              placeholder='Enter Founder Title'
+              value={newFounderTitle}
+              onChange={(e) => setNewFounderTitle(e.target.value)}
+            />
+            <button type='submit'>Add Founder</button>
+          </form>
+
           <button onClick={handleEdit}>Edit Company</button>
           <button onClick={handleDelete}>Delete Company</button>
         </div>
