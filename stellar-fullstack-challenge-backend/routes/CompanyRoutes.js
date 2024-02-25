@@ -1,4 +1,4 @@
-const connectDB = require("../src/config/db");
+const connectDB = require("../config/db");
 const express = require("express");
 const companyRoute = express.Router();
 const SQLUtils = require("../utils/SQLUtils");
