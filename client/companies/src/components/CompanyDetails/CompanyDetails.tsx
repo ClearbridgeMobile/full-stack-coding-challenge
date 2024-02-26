@@ -65,7 +65,11 @@ const CompanyDetails = () => {
                 <p>{`${founder.full_name} : ${founder.title} `}</p>
               </div>
             ))}
-            <Link to='/add-founder' state={{ id, company }}>
+            <Link
+              to='/add-founder'
+              state={{ id, company }}
+              className='add-founder-link'
+            >
               Add Founder
             </Link>
           </div>
