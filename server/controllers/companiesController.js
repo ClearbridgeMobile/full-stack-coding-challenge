@@ -101,11 +101,20 @@ const updateCompany = async (req, res, next) => {
 
 const deleteCompany = async (req, res, next) => {
   const { id } = req.params;
+  const client = await pool.connect();
+
   try {
-    await pool.query('DELETE FROM companies WHERE id = $1', [id]);
-    res.json({ message: 'Company deleted successfully' });
+    await client.query('DELETE FROM founders WHERE company_id = $1', [id]); // Delete associated founders
+    await client.query('DELETE FROM companies WHERE id = $1', [id]); // Delete the company
+    await client.query('COMMIT');
+    res.json({
+      message: 'Company and associated founders deleted successfully',
+    });
   } catch (error) {
+    await client.query('ROLLBACK');
     next(error);
+  } finally {
+    client.release();
   }
 };
 

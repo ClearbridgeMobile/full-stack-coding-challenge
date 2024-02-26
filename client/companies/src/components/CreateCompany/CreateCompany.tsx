@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Company } from '../../common/Company';
+import './CreateCompany.css';
 
 interface CompanyData {
   name: string;
@@ -55,42 +56,56 @@ function CreateCompany() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type='text'
-        name='name'
-        value={companyData.name}
-        onChange={handleChange}
-        placeholder='Company Name'
-      />
-      <input
-        type='text'
-        name='city'
-        value={companyData.city}
-        onChange={handleChange}
-        placeholder='City'
-      />
-      <input
-        type='text'
-        name='state'
-        value={companyData.state}
-        onChange={handleChange}
-        placeholder='State'
-      />
-      <textarea
-        name='long_description'
-        value={companyData.long_description}
-        onChange={handleChange}
-        placeholder='Long Description'
-      ></textarea>
-      <input
-        type='date'
-        name='founded_date'
-        value={companyData.founded_date}
-        onChange={handleChange}
-      />
-      <button type='submit'>Create Company</button>
-    </form>
+    <>
+      <h2>Create A New Company</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor='name'>Company Name:</label>
+          <input
+            type='text'
+            name='name'
+            value={companyData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='inline-labels'>
+          <label htmlFor='city'>City:</label>
+          <label htmlFor='state'>State:</label>
+          <label htmlFor='founded_date'>Founded Date:</label>
+        </div>
+        <div className='inline-inputs'>
+          <input
+            type='text'
+            name='city'
+            value={companyData.city}
+            onChange={handleChange}
+          />
+          <input
+            type='text'
+            name='state'
+            value={companyData.state}
+            onChange={handleChange}
+          />
+          <input
+            type='date'
+            name='founded_date'
+            value={companyData.founded_date}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='long_description'>Description:</label>
+          <textarea
+            name='long_description'
+            value={companyData.long_description}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <button className='button-container' type='submit'>
+          Save
+        </button>
+      </form>
+    </>
   );
 }
 

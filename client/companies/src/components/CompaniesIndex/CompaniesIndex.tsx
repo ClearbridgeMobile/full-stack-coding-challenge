@@ -32,19 +32,24 @@ function CompaniesIndex() {
 
   return (
     <>
-      {companies.map((company: Company) => (
-        <Link to={`/company/${company.id}`}>
-          <div key={company.id} className='company-card'>
-            <h2>{company.name}</h2>
-            <p>{`${company.city}, ${company.state}`}</p>
-            <p>{company.short_description}</p>
-            <p>Founded Date: {new Date(company.founded_date).toDateString()}</p>
-            <h3>Founders:</h3>
-            <button className='btn'>Learn More</button>
-          </div>
-        </Link>
-      ))}
-      <Link to='/create-company'>Add Company</Link>
+      <div className='companies-container'>
+        {companies.map((company: Company) => (
+          <Link to={`/company/${company.id}`}>
+            <div key={company.id} className='company-card'>
+              <div className='title-section'>
+                <h3>{company.name}</h3>
+                <div>{`${company.city}, ${company.state}`}</div>
+                <div>more...</div>
+              </div>
+              <p>{company.short_description}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <Link className='button-container' to='/create-company'>
+        Add Company
+      </Link>
     </>
   );
 }

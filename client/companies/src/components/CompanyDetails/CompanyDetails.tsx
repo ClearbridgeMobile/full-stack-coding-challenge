@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { Company } from './../../common/Company';
 import { useNavigate } from 'react-router-dom';
+import './CompanyDetails.css';
 
 const CompanyDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -45,41 +46,32 @@ const CompanyDetails = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <>
       {company && (
-        <div>
+        <div className='company-details'>
           <h2>{company.name}</h2>
-          <p>{`${company.city}, ${company.state}`}</p>
-          <p>
-            <strong>Short Description:</strong> {company.short_description}
-          </p>
-          <p>
-            <strong>Long Description:</strong> {company.long_description}
-          </p>
-          <p>
-            <strong>Founded Date:</strong>{' '}
-            {new Date(company.founded_date).toDateString()}
-          </p>
-          <h3>Founders:</h3>
-          {company.founders.map((founder, index) => (
-            <div key={index}>
-              <p>
-                <strong>Name:</strong> {founder.full_name}
-              </p>
-              <p>
-                <strong>Title:</strong> {founder.title}
-              </p>
-            </div>
-          ))}
-
-          <button onClick={handleEdit}>Edit Company</button>
-          <button onClick={handleDelete}>Delete Company</button>
-          <Link to='/add-founder' state={{ id, company }}>
-            Add Founder
-          </Link>
+          <div className='section-one'>
+            <p>{new Date(company.founded_date).toDateString()}</p>
+            <p>{`${company.city}, ${company.state}`}</p>
+            <div>|</div>
+            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleDelete}>Delete</button>
+          </div>
+          <p>{company.long_description}</p>
+          <div className='founders'>
+            <h3>Founders:</h3>
+            {company.founders.map((founder, index) => (
+              <div key={index}>
+                <p>{`${founder.full_name} : ${founder.title} `}</p>
+              </div>
+            ))}
+            <Link to='/add-founder' state={{ id, company }}>
+              Add Founder
+            </Link>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
