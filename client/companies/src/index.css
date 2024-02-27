@@ -1,0 +1,14 @@
+:root {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: #f9f3f1;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color */
+}
